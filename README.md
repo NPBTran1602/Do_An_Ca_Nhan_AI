@@ -16,7 +16,6 @@ Mục tiêu của dự án này là xây dựng một ứng dụng mô phỏng v
 ## 2. Nội dung
 ### 2.1. Các thuật toán Tìm kiếm không có thông tin (Uninformed Search)
 **Khái niệm bài toán tìm kiếm và lời giải:**
-
 Trong bối cảnh trò chơi 8-Puzzle, bài toán tìm kiếm được định nghĩa như sau:
 
 Trạng thái (State): Một cấu hình cụ thể của bảng 3x3, biểu diễn vị trí của 8 ô số và ô trống (ký hiệu là 0). Ví dụ: ((1,2,3),(4,0,5),(6,7,8)).
@@ -117,8 +116,7 @@ Lặp lại việc mở rộng các node ở các độ sâu nông nhiều lần
 
 
 ### 2.2. Các thuật toán Tìm kiếm có thông tin (Informed Search)
-**Khái niệm bài toán tìm kiếm và lời giải**
-
+**Khái niệm bài toán tìm kiếm và lời giải:**
 Tương tự như tìm kiếm không có thông tin, nhưng nhóm thuật toán này sử dụng thêm hàm heuristic để ước lượng "độ gần" của một trạng thái với trạng thái đích. Hàm heuristic giúp hướng dẫn quá trình tìm kiếm hiệu quả hơn. Trong dự án này, hàm heuristic Manhattan Distance (tổng khoảng cách Manhattan của mỗi ô số đến vị trí đích của nó) thường được sử dụng.
 
 **Các thuật toán Tìm kiếm có thông tin đã triển khai:**
@@ -186,8 +184,7 @@ Lặp lại việc mở rộng node như IDDFS, có thể tốn thời gian hơn
 
 
 ### 2.3. Các thuật toán Tìm kiếm cục bộ (Local Search)
-**Khái niệm bài toán tìm kiếm và lời giải**
-
+**Khái niệm bài toán tìm kiếm và lời giải:**
 Tìm kiếm cục bộ hoạt động trên một "không gian trạng thái" duy nhất, di chuyển từ trạng thái hiện tại sang một trạng thái lân cận tốt hơn theo một tiêu chí nào đó (thường là giảm giá trị hàm mục tiêu hoặc hàm heuristic). Mục tiêu là tìm kiếm một trạng thái tối ưu (thường là tối ưu cục bộ hoặc toàn cục). Lời giải ở đây là trạng thái đích được tìm thấy, không phải là đường đi.
 
 **Các thuật toán Tìm kiếm cục bộ đã triển khai**
@@ -323,8 +320,7 @@ Có thể mất nhiều thời gian để hội tụ.
 
 
 ### 2.4. Các thuật thuật toán Tìm kiếm dựa trên ràng buộc (Constraint-Based Search)
-**Khái niệm bài toán tìm kiếm và lời giải**
-
+**Khái niệm bài toán tìm kiếm và lời giải:**
 Trong bối cảnh 8-Puzzle, tìm kiếm dựa trên ràng buộc có thể được hiểu là việc tìm kiếm một cấu hình bảng (trạng thái đích) thỏa mãn các ràng buộc về vị trí của các ô số. Các thuật toán này thường được sử dụng cho các bài toán thỏa mãn ràng buộc (Constraint Satisfaction Problems - CSP). Trong triển khai này, các thuật toán này được điều chỉnh để tìm đường đi đến trạng thái đích.
 
 **Các thuật toán Tìm kiếm dựa trên ràng buộc đã triển khai**
@@ -394,7 +390,7 @@ Khi mô phỏng bằng BFS, nó kế thừa nhược điểm về bộ nhớ c�
 
 
 ### 2.5. Các thuật toán Tìm kiếm phức tạp (Complex Search)
-**Khái niệm bài toán tìm kiếm và lời giải**
+**Khái niệm bài toán tìm kiếm và lời giải:**
 Nhóm này bao gồm các thuật toán xử lý các bài toán tìm kiếm trong môi trường không chắc chắn hoặc có quan sát một phần.
 
 **Các thuật toán Tìm kiếm phức tạp đã triển khai**
