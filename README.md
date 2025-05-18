@@ -47,9 +47,25 @@ IDDFS (Iterative Deepening Depth-First Search): Tìm kiếm theo chiều sâu l�
 **Hình ảnh minh họa**
 GIF minh họa quá trình chạy của từng thuật toán: 
 
+ **Hình minh họa của BFS:**
+ 
+![BFS](https://github.com/user-attachments/assets/b7e9f5b0-99f8-453d-aabb-d7b4e424a1f4)
+
+**Hình minh họa của DFS:**
+
+![DFS](https://github.com/user-attachments/assets/fb45dcbd-ae5c-4b2f-afc2-c7970e912370)
+
+**Hình minh họa của UCS:**
+
+![UCS](https://github.com/user-attachments/assets/7f2e6ca4-dd13-40b4-9027-e0e86080cb0a)
+
+**Hình minh họa của IDDFS:**
+
+![IDDFS](https://github.com/user-attachments/assets/488a24ea-03ae-4d07-8e96-8017542e7801)
 
 Biểu đồ so sánh hiệu suất: 
 
+![Screenshot 2025-05-18 125126](https://github.com/user-attachments/assets/a106874a-1b34-4ce2-b3dc-76b77961e6c5)
 
 **Ưu điểm, Nhược điểm và Hiệu suất**
 
@@ -131,7 +147,21 @@ IDA* Search (Iterative Deepening A* Search): Kết hợp A* Search với tìm ki
 
 GIF minh họa quá trình chạy của từng thuật toán: 
 
+**Hình ảnh minh họa A_star:**
+
+![A](https://github.com/user-attachments/assets/31b2ebfd-cadf-49ed-b54b-b1998c29dee2)
+
+**Hình ảnh minh họa Greedy:**
+
+![greedy](https://github.com/user-attachments/assets/acc1ee7e-3344-41e2-b113-ccbde7922c14)
+
+**Hình ảnh minh họa IDA_star:**
+
+![IDA](https://github.com/user-attachments/assets/c4a09a18-a6d9-4b97-a746-ae1e1e15242f)
+
 Biểu đồ so sánh hiệu suất:
+
+![Screenshot 2025-05-18 123150](https://github.com/user-attachments/assets/e2f6761c-f4c8-49a3-b4ac-5e330a1da284)
 
 **Ưu điểm, Nhược điểm và Hiệu suất**
 
@@ -201,11 +231,37 @@ Beam Search: Duy trì một tập hợp các trạng thái tốt nhất (beam) v
 
 Genetic Algorithm: Sử dụng các nguyên tắc tiến hóa (chọn lọc, lai ghép, đột biến) để tìm kiếm lời giải.
 
-Hình ảnh minh họa
+**Hình ảnh minh họa**
+
 GIF minh họa quá trình chạy của từng thuật toán: 
+
+**Hình ảnh minh họa Simple Hill Climbing:**
+
+![Simple_HC](https://github.com/user-attachments/assets/adfba975-c993-42e1-992d-e7dfd7858d60)
+
+**Hình ảnh minh họa Steepest Ascent Hill Climbing:**
+
+![SA_HC](https://github.com/user-attachments/assets/bab3c2d7-7d16-4124-9b09-c3fc760bb198)
+
+**Hình ảnh minh họa Stochastic Hill Climbing:**
+
+![Stochastic_HC](https://github.com/user-attachments/assets/16656472-32a5-4c4c-8e4c-6f8b9609ccdc)
+
+**Hình ảnh minh họa Simulated Annealing:**
+
+![Screenshot 2025-05-18 124926](https://github.com/user-attachments/assets/19fcf05b-ee2d-4c50-8d96-3bfd671d609e)
+
+**Hình ảnh minh họa Beam Search:**
+
+![Beam](https://github.com/user-attachments/assets/2afc4afa-b56b-40d2-abd6-1b12ea12d071)
+
+**Hình ảnh minh họa Genetic Algorithm:**
+
+![Screenshot 2025-05-18 125014](https://github.com/user-attachments/assets/20211b2b-ccf7-4561-8422-22d3193ec126)
 
 Biểu đồ so sánh hiệu suất: 
 
+![Screenshot 2025-05-18 125026](https://github.com/user-attachments/assets/11d65dc7-68d5-42f7-bc50-27d8625e96a0)
 
 **Ưu điểm, Nhược điểm và Hiệu suất**
 
@@ -333,7 +389,21 @@ Constraint Propagation (AC3): Một thuật toán đảm bảo tính nhất quá
 
 Hình ảnh minh họa:
 
+**Hình ảnh minh họa của Backtracking Search:**
+
+![Backtracking](https://github.com/user-attachments/assets/842af70f-ebbf-4730-8109-690de65d4f26)
+
+**Hình ảnh minh họa của Forward Checking:**
+
+![forward_checking](https://github.com/user-attachments/assets/2d4543c1-125c-4050-bf44-0c8893e2d821)
+
+**Hình ảnh minh họa của Constraint Propagation (AC3):**
+
+![AC3](https://github.com/user-attachments/assets/16f03170-9591-41e8-a82d-657589ef1ab9)
+
 Biểu đồ so sánh hiệu suất:
+
+![Screenshot 2025-05-18 125206](https://github.com/user-attachments/assets/88d7104e-7f3a-4358-9126-cfb9d6e4a5b5)
 
 **Ưu điểm, Nhược điểm và Hiệu suất**
 
@@ -403,7 +473,21 @@ Search with Partial Observation: Tìm kiếm khi hệ thống chỉ có thể qu
 
 Hình ảnh minh họa:
 
+**Hình ảnh minh họa của AND-OR Search:**
+
+![AND_OR](https://github.com/user-attachments/assets/d0346595-d768-418f-8b5e-9e09e9de44ef)
+
+**Hình ảnh minh họa của Belief State Search:**
+
+![Belief](https://github.com/user-attachments/assets/722b81cd-adb0-41f9-a96c-ea6aa749573d)
+
+**Hình ảnh minh họa của Search with Partial Observation:**
+
+![SearchwithPO](https://github.com/user-attachments/assets/a8bc670f-3348-4d6f-8303-9d46eec47b2f)
+
 Biểu đồ so sánh hiệu suất: 
+
+![Screenshot 2025-05-18 125717](https://github.com/user-attachments/assets/7a2833b3-4e9c-4fab-91c6-6b97a31146eb)
 
 **Ưu điểm, Nhược điểm và Hiệu suất**
 
@@ -437,9 +521,11 @@ Q-Learning: Một thuật toán học tăng cường không mô hình (model-fre
 
 Hình ảnh minh họa:
 
-
+![Qlearning](https://github.com/user-attachments/assets/27d8b9ae-3129-49c9-b582-94db8e5e9df3)
 
 Biểu đồ so sánh hiệu suất: 
+
+![image](https://github.com/user-attachments/assets/2e720703-b7b3-4018-a392-d148f79ea96c)
 
 **Ưu điểm, Nhược điểm và Hiệu suất**
 
