@@ -1,8 +1,8 @@
 # Do_An_Ca_Nhan_AI
 
-Báo cáo Đồ án Cá nhân Trí tuệ Nhân tạo
+# Báo cáo Đồ án Cá nhân Trí tuệ Nhân tạo
 
-Đề tài: Giải bài toán 8-Puzzle bằng các thuật toán tìm kiếm
+## Đề tài: Giải bài toán 8-Puzzle bằng các thuật toán tìm kiếm
 
 Giảng viên hướng dẫn: Phan Thị Huyền Trang
 
@@ -10,377 +10,473 @@ Sinh viên thực hiện: Nguyễn Phạm Bảo Trân - 23110348
 
 Ngày báo cáo: Tháng 05 năm 2025
 
+## 1. Mục tiêu
+Mục tiêu của dự án này là xây dựng một ứng dụng mô phỏng việc giải trò chơi 8-Puzzle (hay Fifteen Puzzle trên bảng 3x3) bằng cách áp dụng và so sánh hiệu quả của các thuật toán tìm kiếm khác nhau trong Trí tuệ Nhân tạo. Ứng dụng cung cấp giao diện trực quan để người dùng nhập trạng thái ban đầu và trạng thái đích, chọn thuật toán, xem quá trình giải từng bước và so sánh hiệu suất giữa các thuật toán.
 
-1. Mục tiêu
+## 2. Nội dung
+### 2.1. Các thuật toán Tìm kiếm không có thông tin (Uninformed Search)
+**Khái niệm bài toán tìm kiếm và lời giải:**
 
+Trong bối cảnh trò chơi 8-Puzzle, bài toán tìm kiếm được định nghĩa như sau:
 
-Mục tiêu của đồ án này là tìm hiểu, triển khai và đánh giá hiệu quả của các thuật toán tìm kiếm khác nhau trong lĩnh vực Trí tuệ Nhân tạo để giải quyết bài toán kinh điển 8-Puzzle. Cụ thể, nhóm hướng tới:
+Trạng thái (State): Một cấu hình cụ thể của bảng 3x3, biểu diễn vị trí của 8 ô số và ô trống (ký hiệu là 0). Ví dụ: ((1,2,3),(4,0,5),(6,7,8)).
 
-Nắm vững lý thuyết về các thuật toán tìm kiếm có thông tin và không có thông tin, tìm kiếm cục bộ, tìm kiếm dựa trên ràng buộc, tìm kiếm trong môi trường phức tạp và học tăng cường.
+Hành động (Action): Các di chuyển hợp lệ của ô trống: Lên (Up), Xuống (Down), Trái (Left), Phải (Right).
 
-Xây dựng chương trình mô phỏng bài toán 8-Puzzle với giao diện đồ họa thân thiện, cho phép người dùng nhập trạng thái ban đầu và trạng thái đích.
+Môi trường (Environment): Tập hợp tất cả các trạng thái có thể đạt được từ trạng thái ban đầu bằng cách áp dụng các hành động hợp lệ.
 
-Tích hợp các thuật toán tìm kiếm đã triển khai vào chương trình mô phỏng.
+Trạng thái ban đầu (Initial State): Cấu hình bắt đầu của bảng 8-Puzzle do người dùng nhập hoặc được tạo ngẫu nhiên.
 
-Đánh giá hiệu suất (thời gian thực thi, số node mở rộng) của các thuật toán trên các bài toán 8-Puzzle khác nhau.
+Trạng thái đích (Goal State): Cấu hình mong muốn của bảng 8-Puzzle (thường là các số được sắp xếp theo thứ tự).
 
-Trực quan hóa quá trình tìm kiếm và lời giải của từng thuật toán.
+Chi phí bước đi (Step Cost): Chi phí để thực hiện một hành động (thường là 1 cho mỗi bước di chuyển).
 
-So sánh và đưa ra nhận xét về ưu nhược điểm của từng thuật toán trong việc giải quyết bài toán 8-Puzzle.
+Lời giải (Solution): Một chuỗi các hành động (di chuyển) từ trạng thái ban đầu dẫn đến trạng thái đích. Lời giải tối ưu là lời giải có tổng chi phí bước đi thấp nhất (trong 8-Puzzle, đây là chuỗi di chuyển ngắn nhất).
 
+**Các thuật toán Tìm kiếm không có thông tin đã triển khai:**
 
-2. Nội dung
+Nhóm thuật toán này tìm kiếm lời giải mà không sử dụng bất kỳ thông tin bổ sung nào về "độ gần" của một trạng thái với trạng thái đích. Chúng khám phá không gian trạng thái một cách "mù quáng", chỉ dựa vào cấu trúc của không gian tìm kiếm. Các thuật toán được triển khai bao gồm:
 
+BFS (Breadth-First Search): Tìm kiếm theo chiều rộng.
 
-2.1. Bài toán tìm kiếm và các khái niệm cơ bản
-   
-Bài toán 8-Puzzle là một ví dụ điển hình của bài toán tìm kiếm trạng thái trong AI. Mục tiêu là di chuyển các ô vuông (được đánh số từ 1 đến 8) trên một bàn cờ 3x3 để đạt được một trạng thái đích cho trước, bằng cách trượt ô trống (số 0) vào các vị trí liền kề.
+DFS (Depth-First Search): Tìm kiếm theo chiều sâu.
 
-Các thành phần chính của bài toán tìm kiếm bao gồm:
+UCS (Uniform-Cost Search): Tìm kiếm chi phí đồng nhất.
 
-Không gian trạng thái (State Space): Tập hợp tất cả các cấu hình có thể có của bàn cờ 8-Puzzle. Mỗi trạng thái là một cách sắp xếp các số từ 0 đến 8 trên bàn cờ 3x3.
+IDDFS (Iterative Deepening Depth-First Search): Tìm kiếm theo chiều sâu lặp.
 
-Trạng thái ban đầu (Initial State): Cấu hình xuất phát của bàn cờ.
+**Hình ảnh minh họa**
+GIF minh họa quá trình chạy của từng thuật toán: 
 
-Các hành động/toán tử (Actions/Operators): Các thao tác di chuyển ô trống. Trong bài toán 8-Puzzle, các hành động có thể là: Lên (Up), Xuống (Down), Sang trái (Left), Sang phải (Right), tùy thuộc vào vị trí hiện tại của ô trống.
 
-Mô hình chuyển đổi (Transition Model): Xác định trạng thái kết quả sau khi thực hiện một hành động từ một trạng thái nhất định.
+Biểu đồ so sánh hiệu suất: 
 
-Kiểm tra đích (Goal Test): Một hàm kiểm tra xem một trạng thái có phải là trạng thái đích hay không.
 
-Chi phí đường đi (Path Cost): Chi phí tích lũy của một chuỗi hành động từ trạng thái ban đầu đến trạng thái hiện tại. Trong bài toán 8-Puzzle đơn giản, chi phí cho mỗi bước di chuyển thường là 1.
+**Ưu điểm, Nhược điểm và Hiệu suất**
 
-Lời giải (Solution): Lời giải cho bài toán tìm kiếm là một chuỗi các hành động từ trạng thái ban đầu dẫn đến trạng thái đích. Lời giải tối ưu là lời giải có chi phí đường đi thấp nhất.
+Tổng quan về hiệu suất trên trò chơi 8 ô chữ: Trên bài toán 8-Puzzle, không gian trạng thái là hữu hạn. BFS và UCS (với chi phí bước đi = 1) sẽ tìm thấy lời giải tối ưu nhưng có thể tốn rất nhiều bộ nhớ cho các trạng thái khó. DFS có thể nhanh hơn về thời gian và tiết kiệm bộ nhớ hơn nhưng không đảm bảo tối ưu. IDDFS thường là lựa chọn cân bằng tốt nhất trong nhóm này về cả thời gian và bộ nhớ.
 
+BFS (Breadth-First Search):
+BFS khám phá không gian tìm kiếm theo từng lớp, mở rộng tất cả các node ở độ sâu k trước khi chuyển sang độ sâu k+1.
 
-2.2. Các thuật toán Tìm kiếm không có thông tin (Uninformed Search)
+Ưu điểm:
 
-Các thuật toán tìm kiếm không có thông tin (hay còn gọi là Blind Search) chỉ sử dụng thông tin về trạng thái hiện tại và các hành động có thể có, mà không sử dụng bất kỳ thông tin bổ sung nào về "độ gần" của trạng thái hiện tại với trạng thái đích.
+Đảm bảo tính đầy đủ (completeness) - luôn tìm thấy lời giải nếu có.
 
-Tìm kiếm theo chiều rộng (Breadth-First Search - BFS):
+Đảm bảo tính tối ưu (optimality) - tìm thấy lời giải ngắn nhất/chi phí thấp nhất khi chi phí bước đi là như nhau (như trong 8-Puzzle).
 
-Nguyên lý: Mở rộng tất cả các node ở độ sâu d trước khi chuyển sang các node ở độ sâu d+1. Sử dụng hàng đợi (queue) để lưu trữ các node cần mở rộng.
+Nhược điểm:
 
-Áp dụng cho 8-Puzzle: Bắt đầu từ trạng thái ban đầu, thuật toán khám phá tất cả các trạng thái có thể đạt được sau 1 bước di chuyển, sau đó là 2 bước, v.v., cho đến khi tìm thấy trạng thái đích.
+Yêu cầu lượng bộ nhớ rất lớn để lưu trữ hàng đợi và các trạng thái đã thăm, trong đó b là hệ số phân nhánh và d là độ sâu của lời giải.
 
-Ưu điểm: Đảm bảo tìm thấy lời giải tối ưu (với chi phí bước đi bằng 1) nếu có lời giải.
+Có thể tốn kém về thời gian nếu lời giải nằm ở độ sâu lớn.
 
-Nhược điểm: Có thể yêu cầu bộ nhớ rất lớn do phải lưu trữ tất cả các node ở mỗi cấp độ.
 
-Hình ảnh GIF minh họa:
+DFS (Depth-First Search):
+DFS khám phá không gian tìm kiếm theo chiều sâu nhất có thể trước khi quay lui.
 
-Nhận xét về hiệu suất trên 8-Puzzle: BFS thường hiệu quả với các bài toán có lời giải ở độ sâu nông. Tuy nhiên, với các bài toán 8-Puzzle yêu cầu nhiều bước di chuyển, không gian tìm kiếm có thể rất lớn, khiến BFS trở nên chậm và tốn bộ nhớ.
+Ưu điểm:
 
-Tìm kiếm theo chiều sâu (Depth-First Search - DFS):
+Yêu cầu bộ nhớ ít hơn đáng kể so với BFS (O(bm)).
 
-Nguyên lý: Luôn mở rộng node sâu nhất có thể trong cây tìm kiếm. Sử dụng ngăn xếp (stack) để lưu trữ các node cần mở rộng. Có thể cài đặt đệ quy.
+Có thể tìm thấy lời giải nhanh chóng nếu lời giải nằm ở độ sâu nông.
 
-Áp dụng cho 8-Puzzle: Thuật toán đi sâu vào một nhánh của cây tìm kiếm cho đến khi đạt đến độ sâu tối đa hoặc không thể mở rộng thêm, sau đó quay lui và khám phá nhánh khác.
+Nhược điểm:
 
-Ưu điểm: Yêu cầu bộ nhớ ít hơn đáng kể so với BFS.
+Không đảm bảo tính đầy đủ (có thể đi vào nhánh vô hạn nếu không có kiểm soát trạng thái đã thăm hoặc giới hạn độ sâu).
 
-Nhược điểm: Không đảm bảo tìm thấy lời giải tối ưu và có thể rơi vào vòng lặp vô hạn nếu không có cơ chế kiểm tra trạng thái đã thăm hoặc giới hạn độ sâu.
+Không đảm bảo tính tối ưu (có thể tìm thấy lời giải dài hơn trước).
 
-Hình ảnh GIF minh họa:
 
-Nhận xét về hiệu suất trên 8-Puzzle: DFS có thể tìm thấy lời giải nhanh nếu lời giải nằm ở độ sâu lớn dọc theo nhánh đầu tiên nó khám phá. Tuy nhiên, nếu không có giới hạn độ sâu, nó có thể tìm kiếm rất lâu trong các nhánh không chứa lời giải.
+UCS (Uniform-Cost Search):
+UCS mở rộng node dựa trên tổng chi phí từ trạng thái ban đầu đến trạng thái hiện tại. Nó sử dụng hàng đợi ưu tiên để luôn mở rộng node có chi phí đường đi thấp nhất.
 
-Tìm kiếm chi phí đồng nhất (Uniform-Cost Search - UCS):
+Ưu điểm:
 
-Nguyên lý: Mở rộng node có chi phí đường đi từ gốc đến node đó (g(n)) thấp nhất. Sử dụng hàng đợi ưu tiên (priority queue) sắp xếp theo chi phí g(n).
+Đảm bảo tính đầy đủ và tính tối ưu (tìm thấy lời giải có chi phí thấp nhất).
 
-Áp dụng cho 8-Puzzle: Tìm kiếm đường đi có tổng chi phí thấp nhất. Với chi phí mỗi bước là 1, UCS tương tự như BFS.
+Nhược điểm:
 
-Ưu điểm: Đảm bảo tìm thấy lời giải tối ưu.
+Có thể tốn kém về thời gian và bộ nhớ, đặc biệt nếu chi phí bước đi nhỏ, dẫn đến việc mở rộng nhiều node có chi phí thấp.
 
-Nhược điểm: Giống BFS, có thể tốn nhiều bộ nhớ và thời gian với không gian trạng thái lớn.
+Trên 8-Puzzle với chi phí mỗi bước là 1, hiệu suất và kết quả tương tự BFS.
 
-Hình ảnh GIF minh họa: (Cần bổ sung hình ảnh GIF quá trình UCS trên 8-Puzzle)
 
-Hình ảnh so sánh hiệu suất: (Cần bổ sung biểu đồ so sánh hiệu suất UCS với các thuật toán khác)
+IDDFS (Iterative Deepening Depth-First Search):
+IDDFS thực hiện chuỗi các lần tìm kiếm theo chiều sâu với giới hạn độ sâu tăng dần (1, 2, 3, ...).
 
-Nhận xét về hiệu suất trên 8-Puzzle: Tương tự BFS khi chi phí bước đi là 1.
+Ưu điểm:
 
-Tìm kiếm theo chiều sâu lặp sâu dần (Iterative Deepening Depth-First Search - IDDFS):
+Kết hợp tính đầy đủ và tối ưu của BFS với hiệu quả bộ nhớ của DFS (O(bd)).
 
-Nguyên lý: Kết hợp ưu điểm của DFS (bộ nhớ ít) và BFS (tìm thấy lời giải tối ưu). Thực hiện chuỗi các lần tìm kiếm theo chiều sâu với giới hạn độ sâu tăng dần (1, 2, 3, ...).
+Thường là lựa chọn tốt cho tìm kiếm không có thông tin khi độ sâu lời giải không biết trước.
 
-Áp dụng cho 8-Puzzle: Tìm kiếm đến độ sâu 1, nếu không tìm thấy thì tìm kiếm đến độ sâu 2, v.v.
+Nhược điểm:
 
-Ưu điểm: Tìm thấy lời giải tối ưu và yêu cầu bộ nhớ ít như DFS. Thường là thuật toán tìm kiếm không có thông tin tốt nhất cho các bài toán có không gian trạng thái lớn và độ sâu lời giải không quá lớn.
+Lặp lại việc mở rộng các node ở các độ sâu nông nhiều lần, có thể tốn kém thời gian hơn BFS một chút (nhưng thường không đáng kể trong thực tế so với lợi ích về bộ nhớ).
 
-Nhược điểm: Lặp lại việc mở rộng các node ở các cấp độ trên nhiều lần.
 
-Hình ảnh GIF minh họa: (Cần bổ sung hình ảnh GIF quá trình IDDFS trên 8-Puzzle)
+### 2.2. Các thuật toán Tìm kiếm có thông tin (Informed Search)
+**Khái niệm bài toán tìm kiếm và lời giải**
 
-Hình ảnh so sánh hiệu suất: (Cần bổ sung biểu đồ so sánh hiệu suất IDDFS với các thuật toán khác)
+Tương tự như tìm kiếm không có thông tin, nhưng nhóm thuật toán này sử dụng thêm hàm heuristic để ước lượng "độ gần" của một trạng thái với trạng thái đích. Hàm heuristic giúp hướng dẫn quá trình tìm kiếm hiệu quả hơn. Trong dự án này, hàm heuristic Manhattan Distance (tổng khoảng cách Manhattan của mỗi ô số đến vị trí đích của nó) thường được sử dụng.
 
-Nhận xét về hiệu suất trên 8-Puzzle: IDDFS thường hoạt động tốt trên 8-Puzzle, cân bằng giữa thời gian và bộ nhớ.
+**Các thuật toán Tìm kiếm có thông tin đã triển khai:**
 
+Greedy Best-First Search: Mở rộng node dựa trên giá trị heuristic thấp nhất.
 
-2.3. Các thuật toán Tìm kiếm có thông tin (Informed Search)
+A* Search: Mở rộng node dựa trên tổng chi phí từ trạng thái ban đầu đến trạng thái hiện tại (g) cộng với ước lượng chi phí từ trạng thái hiện tại đến đích (h), tức là f=g+h.
 
-Các thuật toán tìm kiếm có thông tin sử dụng hàm heuristic (h(n)) để ước lượng chi phí từ trạng thái hiện tại (n) đến trạng thái đích. Điều này giúp hướng dẫn quá trình tìm kiếm về phía đích hiệu quả hơn.
+IDA* Search (Iterative Deepening A* Search): Kết hợp A* Search với tìm kiếm theo chiều sâu lặp.
 
-Tìm kiếm tham lam (Greedy Best-First Search):
+**Hình ảnh minh họa**
 
-Nguyên lý: Luôn mở rộng node được đánh giá là "gần đích nhất" dựa trên hàm heuristic h(n). Sử dụng hàng đợi ưu tiên sắp xếp theo h(n).
+GIF minh họa quá trình chạy của từng thuật toán: 
 
-Áp dụng cho 8-Puzzle: Sử dụng hàm heuristic (ví dụ: số ô sai vị trí hoặc tổng khoảng cách Manhattan của các ô so với vị trí đích) để ước lượng số bước còn lại để đạt đến đích.
+Biểu đồ so sánh hiệu suất:
 
-Ưu điểm: Có thể tìm thấy lời giải rất nhanh nếu heuristic tốt.
+**Ưu điểm, Nhược điểm và Hiệu suất**
 
-Nhược điểm: Không đảm bảo tìm thấy lời giải tối ưu và có thể bị mắc kẹt trong các cực tiểu cục bộ hoặc đi theo đường đi không hiệu quả.
+Tổng quan về hiệu suất trên trò chơi 8 ô chữ: Các thuật toán tìm kiếm có thông tin thường hiệu quả hơn các thuật toán không có thông tin trên bài toán 8-Puzzle vì chúng sử dụng heuristic để định hướng tìm kiếm. Với heuristic Manhattan Distance (là heuristic chấp nhận được và nhất quán), A* Search và IDA* Search là các thuật toán tìm kiếm có thông tin hiệu quả và đảm bảo tối ưu cho 8-Puzzle. Greedy Search có thể nhanh nhưng không chắc chắn tìm được lời giải tốt nhất. A* có thể tốn bộ nhớ cho các trạng thái khó, trong khi IDA* cân bằng tốt hơn giữa thời gian và bộ nhớ.
 
-Hình ảnh GIF minh họa:
+Greedy Best-First Search:
+Thuật toán này luôn mở rộng node có giá trị heuristic (h) thấp nhất, tức là node được ước lượng là gần đích nhất.
 
-Nhận xét về hiệu suất trên 8-Puzzle: Greedy với heuristic tốt (như Manhattan) thường tìm thấy lời giải nhanh chóng. Tuy nhiên, lời giải tìm được có thể không phải là lời giải ngắn nhất.
+Ưu điểm:
 
-Tìm kiếm A* (A* Search):
+Thường tìm thấy lời giải rất nhanh chóng trong thực tế nếu heuristic tốt.
 
-Nguyên lý: Mở rộng node có tổng chi phí ước lượng thấp nhất, được tính bằng f(n)=g(n)+h(n), trong đó g(n) là chi phí thực tế từ gốc đến n, và h(n) là chi phí ước lượng từ n đến đích. Sử dụng hàng đợi ưu tiên sắp xếp theo f(n).
+Hiệu quả bộ nhớ tốt hơn A* trong một số trường hợp.
 
-Áp dụng cho 8-Puzzle: Kết hợp chi phí số bước đã đi với ước lượng số bước còn lại để đưa ra quyết định mở rộng node nào. Sử dụng heuristic Manhattan hoặc số ô sai vị trí.
+Nhược điểm:
 
-Ưu điểm: Đảm bảo tìm thấy lời giải tối ưu nếu hàm heuristic là admissible (không bao giờ ước lượng quá cao chi phí thực tế đến đích) và consistent (thỏa mãn bất đẳng thức tam giác).
+Không đảm bảo tính đầy đủ cũng như tính tối ưu.
 
-Nhược điểm: Có thể tốn nhiều bộ nhớ để lưu trữ các node đã mở rộng.
+Có thể bị mắc kẹt trong các "ngõ cụt" hoặc đi theo đường rất dài.
 
-Hình ảnh GIF minh họa: (Cần bổ sung hình ảnh GIF quá trình A* trên 8-Puzzle)
 
-Hình ảnh so sánh hiệu suất: (Cần bổ sung biểu đồ so sánh hiệu suất A* với các thuật toán khác)
+A* Search:
+A* mở rộng node dựa trên hàm đánh giá f(n)=g(n)+h(n), trong đó g(n) là chi phí thực tế từ trạng thái ban đầu đến n, và h(n) là ước lượng chi phí từ n đến đích.
 
-Nhận xét về hiệu suất trên 8-Puzzle: A* với heuristic Manhattan là một trong những thuật toán hiệu quả nhất để giải 8-Puzzle, tìm được lời giải tối ưu với số node mở rộng tương đối ít.
+Ưu điểm:
 
-Tìm kiếm IDA* (Iterative Deepening A* Search):
+Đảm bảo tính đầy đủ và tính tối ưu nếu hàm heuristic là nhất quán (consistent) hoặc chấp nhận được (admissible).
 
-Nguyên lý: Kết hợp ý tưởng của IDDFS và A*. Thực hiện chuỗi các lần tìm kiếm theo chiều sâu có giới hạn chi phí (f-limit) tăng dần. Giới hạn f trong mỗi lần lặp là giá trị f(n) nhỏ nhất của các node bị cắt ở lần lặp trước.
+Rất hiệu quả trong thực tế với heuristic tốt.
 
-Áp dụng cho 8-Puzzle: Tương tự IDDFS nhưng sử dụng f(n) làm tiêu chí giới hạn thay vì độ sâu.
+Nhược điểm:
 
-Ưu điểm: Tìm thấy lời giải tối ưu và yêu cầu bộ nhớ ít như DFS. Thường là thuật toán tốt nhất khi bộ nhớ là yếu tố hạn chế.
+Yêu cầu bộ nhớ lớn để lưu trữ frontier (priority queue) và các trạng thái đã thăm, tương tự BFS trong trường hợp xấu nhất.
 
-Nhược điểm: Lặp lại việc mở rộng các node.
 
-Hình ảnh GIF minh họa:
+IDA* Search (Iterative Deepening A* Search):
+IDA* thực hiện chuỗi các lần tìm kiếm theo chiều sâu với giới hạn chi phí f tăng dần. Giới hạn ban đầu là f(start), và ở mỗi lần lặp, giới hạn mới là giá trị f nhỏ nhất vượt quá giới hạn hiện tại.
 
-Nhận xét về hiệu suất trên 8-Puzzle: IDA* cũng rất hiệu quả trên 8-Puzzle và thường được ưa chuộng hơn A* khi cần tiết kiệm bộ nhớ.
+Ưu điểm:
 
+Đảm bảo tính đầy đủ và tối ưu (với heuristic phù hợp).
 
-2.4. Các thuật toán Tìm kiếm cục bộ (Local Search)
+Hiệu quả bộ nhớ tốt (O(bd)).
 
-Các thuật toán tìm kiếm cục bộ hoạt động trên một trạng thái duy nhất (thay vì duy trì nhiều đường đi) và di chuyển từ trạng thái hiện tại sang trạng thái "tốt hơn" trong vùng lân cận của nó, dựa trên hàm mục tiêu hoặc heuristic. Chúng không lưu trữ đường đi và thường được sử dụng cho các bài toán tối ưu hóa hơn là tìm đường đi.
+Thường là lựa chọn tốt khi không gian trạng thái lớn và bộ nhớ hạn chế.
 
-Leo đồi đơn giản (Simple Hill Climbing):
+Nhược điểm:
 
-Nguyên lý: Từ trạng thái hiện tại, xem xét tất cả các trạng thái lân cận. Nếu có bất kỳ trạng thái lân cận nào tốt hơn trạng thái hiện tại (có giá trị heuristic thấp hơn), di chuyển đến trạng thái tốt hơn đầu tiên tìm thấy. Lặp lại cho đến khi không tìm thấy trạng thái lân cận nào tốt hơn.
+Lặp lại việc mở rộng node như IDDFS, có thể tốn thời gian hơn A* một chút.
 
-Áp dụng cho 8-Puzzle: Bắt đầu từ một trạng thái ngẫu nhiên, liên tục di chuyển ô trống để giảm số ô sai vị trí hoặc tổng khoảng cách Manhattan.
 
-Ưu điểm: Đơn giản, dễ cài đặt, yêu cầu bộ nhớ rất ít.
+### 2.3. Các thuật toán Tìm kiếm cục bộ (Local Search)
+**Khái niệm bài toán tìm kiếm và lời giải**
 
-Nhược điểm: Dễ bị mắc kẹt trong các cực tiểu cục bộ (local optima) - trạng thái không phải đích nhưng không có lân cận nào tốt hơn. Không đảm bảo tìm thấy lời giải.
+Tìm kiếm cục bộ hoạt động trên một "không gian trạng thái" duy nhất, di chuyển từ trạng thái hiện tại sang một trạng thái lân cận tốt hơn theo một tiêu chí nào đó (thường là giảm giá trị hàm mục tiêu hoặc hàm heuristic). Mục tiêu là tìm kiếm một trạng thái tối ưu (thường là tối ưu cục bộ hoặc toàn cục). Lời giải ở đây là trạng thái đích được tìm thấy, không phải là đường đi.
 
-Hình ảnh GIF minh họa:
+**Các thuật toán Tìm kiếm cục bộ đã triển khai**
 
-Nhận xét về hiệu suất trên 8-Puzzle: Hiếm khi tìm thấy lời giải tối ưu cho các bài toán 8-Puzzle phức tạp do không gian trạng thái có nhiều cực tiểu cục bộ.
+Simple Hill Climbing: Di chuyển đến trạng thái lân cận đầu tiên tốt hơn trạng thái hiện tại.
 
-Leo đồi dốc nhất (Steepest Ascent Hill Climbing):
+Steepest Ascent Hill Climbing: Di chuyển đến trạng thái lân cận tốt nhất trong tất cả các trạng thái lân cận.
 
-Nguyên lý: Tương tự Simple Hill Climbing, nhưng thay vì di chuyển đến trạng thái tốt hơn đầu tiên, nó xem xét tất cả các lân cận và di chuyển đến trạng thái lân cận tốt nhất (giảm heuristic nhiều nhất).
+Stochastic Hill Climbing: Chọn ngẫu nhiên một trạng thái lân cận tốt hơn.
 
-Áp dụng cho 8-Puzzle: Luôn chọn nước đi làm giảm heuristic nhiều nhất.
+Simulated Annealing: Sử dụng nhiệt độ để cho phép di chuyển đến trạng thái xấu hơn với xác suất giảm dần, giúp thoát khỏi tối ưu cục bộ.
 
-Ưu điểm: Có thể hội tụ nhanh hơn Simple Hill Climbing.
+Beam Search: Duy trì một tập hợp các trạng thái tốt nhất (beam) và mở rộng chúng ở mỗi bước.
 
-Nhược điểm: Vẫn dễ bị mắc kẹt trong các cực tiểu cục bộ.
+Genetic Algorithm: Sử dụng các nguyên tắc tiến hóa (chọn lọc, lai ghép, đột biến) để tìm kiếm lời giải.
 
-Hình ảnh GIF minh họa:
+Hình ảnh minh họa
+GIF minh họa quá trình chạy của từng thuật toán: 
 
+Biểu đồ so sánh hiệu suất: 
 
-Nhận xét về hiệu suất trên 8-Puzzle: Tương tự Simple Hill Climbing, hiệu quả hạn chế trên 8-Puzzle.
 
-Leo đồi ngẫu nhiên (Stochastic Hill Climbing):
+**Ưu điểm, Nhược điểm và Hiệu suất**
 
-Nguyên lý: Chọn ngẫu nhiên một trạng thái lân cận tốt hơn để di chuyển, thay vì chọn trạng thái tốt nhất hoặc trạng thái đầu tiên.
+Tổng quan về hiệu suất trên trò chơi 8 ô chữ: Đối với bài toán tìm đường đi trong 8-Puzzle, các thuật toán Hill Climbing và Simulated Annealing (khi được sử dụng để tìm trạng thái đích) có thể không hiệu quả bằng các thuật toán tìm kiếm truyền thống vì chúng không lưu lại đường đi. Beam Search và Genetic Algorithm (khi được điều chỉnh để tìm đường đi) có thể hoạt động, nhưng A* hoặc IDA* thường là lựa chọn tốt hơn cho việc tìm lời giải tối ưu.
 
-Áp dụng cho 8-Puzzle: Chọn ngẫu nhiên một nước đi làm giảm heuristic.
+Simple Hill Climbing:
+Bắt đầu từ một trạng thái ngẫu nhiên và lặp đi lặp lại di chuyển đến một trạng thái lân cận có giá trị hàm mục tiêu (hoặc heuristic) tốt hơn. Dừng lại khi không tìm thấy trạng thái lân cận nào tốt hơn.
 
-Ưu điểm: Có thể thoát khỏi một số cực tiểu cục bộ hẹp.
+Ưu điểm:
 
-Nhược điểm: Vẫn không đảm bảo tìm thấy lời giải tối ưu và có thể mất nhiều thời gian hơn để hội tụ.
+Rất hiệu quả về bộ nhớ (O(1)).
 
-Hình ảnh GIF minh họa: (Cần bổ sung hình ảnh GIF quá trình Stochastic Hill Climbing trên 8-Puzzle)
+Đơn giản, dễ hiểu và triển khai.
 
-Hình ảnh so sánh hiệu suất: (Cần bổ sung biểu đồ so sánh hiệu suất Stochastic Hill Climbing với các thuật toán khác)
+Nhược điểm:
 
-Nhận xét về hiệu suất trên 8-Puzzle: Hiệu quả tương tự các biến thể Hill Climbing khác trên 8-Puzzle.
+Dễ bị mắc kẹt tại tối ưu cục bộ, cao nguyên (plateau) hoặc sườn dốc (ridge).
 
-Mô phỏng luyện kim (Simulated Annealing):
+Không đảm bảo tính đầy đủ hay tối ưu.
 
-Nguyên lý: Thuật toán tìm kiếm cục bộ probabilistic lấy cảm hứng từ quá trình làm nguội kim loại. Nó chấp nhận di chuyển đến trạng thái "tệ hơn" (tăng heuristic) với một xác suất giảm dần theo thời gian (nhiệt độ giảm). Điều này giúp thoát khỏi các cực tiểu cục bộ.
 
-Áp dụng cho 8-Puzzle: Sử dụng heuristic (ví dụ: Manhattan) và một lịch trình nhiệt độ giảm dần để khám phá không gian trạng thái.
+Steepest Ascent Hill Climbing:
+Tương tự Simple Hill Climbing, nhưng ở mỗi bước, nó xem xét tất cả các trạng thái lân cận và di chuyển đến trạng thái lân cận tốt nhất.
 
-Ưu điểm: Có khả năng thoát khỏi cực tiểu cục bộ và tìm thấy lời giải gần tối ưu hoặc tối ưu (nếu lịch trình nhiệt độ đủ chậm).
+Ưu điểm:
 
-Nhược điểm: Việc lựa chọn lịch trình nhiệt độ rất quan trọng và có thể khó khăn.
+Rất hiệu quả về bộ nhớ (O(1)).
 
-Hình ảnh GIF minh họa:
+Thường tìm được lời giải nhanh hơn Simple Hill Climbing nếu không bị mắc kẹt.
 
-Nhận xét về hiệu suất trên 8-Puzzle: Có thể tìm thấy lời giải cho 8-Puzzle, nhưng không đảm bảo tính tối ưu. Hiệu quả phụ thuộc nhiều vào các tham số (nhiệt độ ban đầu, tốc độ giảm nhiệt).
+Nhược điểm:
 
-Tìm kiếm chùm (Beam Search):
+Vẫn dễ bị mắc kẹt tại tối ưu cục bộ, cao nguyên hoặc sườn dốc.
 
-Nguyên lý: Duy trì một tập hợp cố định gồm k trạng thái tốt nhất (được gọi là chùm - beam) ở mỗi bước. Từ các trạng thái trong chùm hiện tại, tạo ra tất cả các trạng thái lân cận, sau đó chọn k trạng thái tốt nhất từ tập hợp lân cận này để tạo thành chùm tiếp theo.
+Không đảm bảo tính đầy đủ hay tối ưu.
 
-Áp dụng cho 8-Puzzle: Ở mỗi bước, tạo ra tất cả các trạng thái con từ chùm hiện tại và chỉ giữ lại k trạng thái tốt nhất theo heuristic.
+Việc đánh giá tất cả các trạng thái lân cận có thể tốn kém hơn Simple Hill Climbing ở mỗi bước.
 
-Ưu điểm: Yêu cầu bộ nhớ giới hạn (theo kích thước chùm k). Có thể tìm thấy lời giải nhanh hơn các thuật toán mù nếu heuristic tốt.
 
-Nhược điểm: Không đảm bảo tìm thấy lời giải tối ưu (trừ khi k đủ lớn, khi đó nó trở thành BFS). Có thể bỏ sót lời giải nếu nó nằm ngoài chùm.
+Stochastic Hill Climbing:
+Thay vì chọn trạng thái lân cận tốt nhất, nó chọn ngẫu nhiên một trong những trạng thái lân cận tốt hơn trạng thái hiện tại.
 
-Hình ảnh GIF minh họa: 
+Ưu điểm:
 
-Nhận xét về hiệu suất trên 8-Puzzle: Hiệu quả phụ thuộc vào kích thước chùm. Kích thước chùm lớn hơn tăng khả năng tìm thấy lời giải tốt nhưng tốn bộ nhớ hơn.
+Rất hiệu quả về bộ nhớ (O(1)).
 
-Thuật toán Di truyền (Genetic Algorithm):
+Có thể thoát khỏi một số tối ưu cục bộ nhỏ do yếu tố ngẫu nhiên.
 
-Nguyên lý: Thuật toán tối ưu hóa dựa trên cơ chế tiến hóa tự nhiên. Duy trì một quần thể các "cá thể" (ở đây là các chuỗi hành động tiềm năng). Các cá thể tốt hơn (có fitness cao hơn, tức là đưa đến trạng thái gần đích hơn) có cơ hội được chọn để "sinh sản" (kết hợp - crossover) và "đột biến" (mutation) để tạo ra thế hệ mới. Quá trình lặp lại qua nhiều thế hệ.
+Nhược điểm:
 
-Áp dụng cho 8-Puzzle: Mỗi cá thể là một chuỗi các bước di chuyển. Fitness được đánh giá dựa trên mức độ gần đích của trạng thái cuối cùng sau khi thực hiện chuỗi hành động đó.
+Vẫn có khả năng bị mắc kẹt.
 
-Ưu điểm: Có khả năng tìm kiếm trong không gian rộng và thoát khỏi các cực tiểu cục bộ.
+Không đảm bảo tính đầy đủ hay tối ưu.
 
-Nhược điểm: Không đảm bảo tìm thấy lời giải tối ưu hoặc thậm chí là lời giải. Việc lựa chọn các tham số (kích thước quần thể, tỷ lệ đột biến, v.v.) rất quan trọng.
 
-Hình ảnh GIF minh họa:
+Simulated Annealing:
+Là một dạng mở rộng của Hill Climbing, cho phép di chuyển đến các trạng thái xấu hơn với một xác suất nhất định. Xác suất này giảm dần theo thời gian (giống như quá trình làm nguội kim loại), giúp thuật toán khám phá không gian tìm kiếm rộng hơn và thoát khỏi tối ưu cục bộ.
 
-Nhận xét về hiệu suất trên 8-Puzzle: Genetic Algorithm có thể tìm thấy lời giải cho 8-Puzzle, nhưng thường chậm hơn các thuật toán tìm kiếm có thông tin như A* và không đảm bảo tính tối ưu.
+Ưu điểm:
 
+Có khả năng thoát khỏi tối ưu cục bộ.
 
-2.5. Các thuật toán Tìm kiếm dựa trên ràng buộc (Constraint-Based Search)
+Có thể tìm thấy lời giải toàn cục nếu các tham số (lịch trình nhiệt độ) được chọn phù hợp.
 
-Tìm kiếm dựa trên ràng buộc (Constraint Satisfaction Problem - CSP) là một kỹ thuật giải quyết vấn đề trong đó lời giải phải thỏa mãn một tập hợp các ràng buộc. Mặc dù 8-Puzzle có thể được mô hình hóa như một bài toán CSP (ví dụ: mỗi ô là một biến có miền giá trị từ 0-8, và các ràng buộc là vị trí tương đối của các ô), việc giải nó bằng các thuật toán CSP truyền thống (như Backtracking Search, Forward Checking, AC3) thường không hiệu quả bằng các thuật toán tìm kiếm trạng thái, đặc biệt là khi tìm đường đi ngắn nhất.
+Hiệu quả bộ nhớ (O(1)).
 
-Tìm kiếm quay lui (Backtracking Search):
+Nhược điểm:
 
-Nguyên lý: Duyệt cây tìm kiếm theo chiều sâu, gán giá trị cho từng biến một. Nếu tại một bước nào đó, việc gán giá trị vi phạm một ràng buộc, thuật toán quay lui về biến trước đó và thử giá trị khác.
+Hiệu quả phụ thuộc nhiều vào lịch trình nhiệt độ.
 
-Áp dụng cho 8-Puzzle (mô hình hóa CSP): Gán vị trí cho từng ô số. Nếu việc gán một ô vi phạm ràng buộc (ví dụ: hai ô cùng vị trí), quay lui.
+Có thể mất nhiều thời gian để hội tụ, đặc biệt là khi nhiệt độ giảm chậm.
 
-Ưu điểm: Đơn giản.
+Không đảm bảo tính đầy đủ hay tối ưu trong mọi trường hợp.
 
-Nhược điểm: Có thể rất chậm do phải khám phá nhiều nhánh không dẫn đến lời giải.
 
-Hình ảnh GIF minh họa:
+Beam Search:
+Duy trì một tập hợp cố định k trạng thái tốt nhất (beam) tại mỗi bước. Ở mỗi bước, nó tạo ra tất cả các trạng thái lân cận từ các trạng thái trong beam hiện tại, sau đó chọn ra k trạng thái tốt nhất từ tập hợp các trạng thái lân cận này để tạo thành beam cho bước tiếp theo.
 
-Nhận xét về hiệu suất trên 8-Puzzle: Backtracking Search trực tiếp trên mô hình CSP của 8-Puzzle thường không hiệu quả bằng các thuật toán tìm kiếm trạng thái.
+Ưu điểm:
 
-Kiểm tra tiến (Forward Checking):
+Duy trì sự đa dạng trong tìm kiếm bằng cách giữ lại nhiều trạng thái tốt nhất (beam).
 
-Nguyên lý: Một cải tiến của Backtracking Search. Khi gán giá trị cho một biến, thuật toán kiểm tra các ràng buộc liên quan đến biến đó và thu hẹp miền giá trị của các biến chưa được gán mà bị ảnh hưởng bởi ràng buộc đó. Nếu miền giá trị của bất kỳ biến nào trở nên rỗng, thuật toán quay lui ngay lập tức.
+Giảm khả năng bị mắc kẹt tại tối ưu cục bộ so với Hill Climbing đơn thuần.
 
-Áp dụng cho 8-Puzzle (mô hình hóa CSP): Khi đặt một ô vào vị trí, kiểm tra xem vị trí đó có hợp lệ với các ô khác chưa được đặt hay không và loại bỏ các vị trí không hợp lệ cho các ô đó.
+Có thể tìm thấy lời giải nhanh chóng.
 
-Ưu điểm: Phát hiện sớm hơn các trường hợp không khả thi so với Backtracking Search.
+Nhược điểm:
 
-Nhược điểm: Vẫn có thể tốn thời gian với các bài toán lớn.
+Không đảm bảo tính đầy đủ hay tối ưu.
 
-Hình ảnh GIF minh họa:
+Hiệu quả phụ thuộc vào chiều rộng beam được chọn.
 
-Nhận xét về hiệu suất trên 8-Puzzle: Hiệu quả hơn Backtracking Search nhưng vẫn kém hơn các thuật toán tìm kiếm trạng thái có thông tin.
 
-Lan truyền ràng buộc (Constraint Propagation - AC3):
+Genetic Algorithm:
+Là một thuật toán tìm kiếm dựa trên quần thể, lấy cảm hứng từ quá trình tiến hóa sinh học. Nó duy trì một quần thể các "cá thể" (lời giải tiềm năng), áp dụng các toán tử như chọn lọc, lai ghép (crossover) và đột biến (mutation) để tạo ra các thế hệ mới với hy vọng tìm được cá thể tốt hơn (lời giải tốt hơn).
 
-Nguyên lý: Thuật toán AC3 (Arc Consistency 3) đảm bảo tính nhất quán cung (arc consistency) giữa các cặp biến. Đối với mỗi cung (Xi​,Xj​), nó loại bỏ các giá trị khỏi miền giá trị của Xi​ mà không có giá trị tương ứng trong miền giá trị của Xj​ thỏa mãn ràng buộc giữa Xi​ và Xj​. Quá trình lặp lại cho đến khi không có miền giá trị nào thay đổi nữa.
+Ưu điểm:
 
-Áp dụng cho 8-Puzzle (mô hình hóa CSP): Áp dụng các ràng buộc về vị trí tương đối giữa các ô để thu hẹp miền giá trị các vị trí khả thi cho từng ô.
+Có khả năng tìm kiếm trong không gian rộng và thoát khỏi tối ưu cục bộ.
 
-Ưu điểm: Có thể thu hẹp đáng kể không gian tìm kiếm trước khi thực hiện tìm kiếm.
+Phù hợp cho các bài toán tối ưu phức tạp.
 
-Nhược điểm: Không đảm bảo tìm thấy lời giải; thường cần kết hợp với tìm kiếm (như Backtracking) để tìm lời giải cụ thể.
+Có thể tìm kiếm song song (khám phá nhiều vùng của không gian tìm kiếm cùng lúc).
 
-Hình ảnh GIF minh họa:
+Nhược điểm:
 
-Nhận xét về hiệu suất trên 8-Puzzle: AC3 được sử dụng để tiền xử lý CSP 8-Puzzle, giúp giảm kích thước miền giá trị, nhưng không phải là thuật toán giải toàn diện.
+Không đảm bảo tính đầy đủ hay tối ưu.
 
+Việc thiết kế hàm fitness, chọn lọc, lai ghép và đột biến rất quan trọng và có thể khó khăn.
 
-2.6. Các thuật toán Tìm kiếm phức tạp (Complex Search)
+Có thể mất nhiều thời gian để hội tụ.
 
-Các thuật toán này giải quyết các bài toán tìm kiếm trong các môi trường phức tạp hơn, ví dụ như môi trường không chắc chắn hoặc có thông tin không đầy đủ.
 
-Tìm kiếm trạng thái niềm tin (Belief State Search):
+### 2.4. Các thuật thuật toán Tìm kiếm dựa trên ràng buộc (Constraint-Based Search)
+**Khái niệm bài toán tìm kiếm và lời giải**
 
-Nguyên lý: Trong môi trường không chắc chắn về trạng thái ban đầu, thuật toán hoạt động trên "trạng thái niềm tin" (belief state), là một tập hợp các trạng thái vật lý có thể xảy ra. Một hành động được thực hiện sẽ dẫn đến một trạng thái niềm tin mới, là tập hợp các trạng thái vật lý có thể đạt được từ tất cả các trạng thái trong trạng thái niềm tin cũ sau khi thực hiện hành động đó.
+Trong bối cảnh 8-Puzzle, tìm kiếm dựa trên ràng buộc có thể được hiểu là việc tìm kiếm một cấu hình bảng (trạng thái đích) thỏa mãn các ràng buộc về vị trí của các ô số. Các thuật toán này thường được sử dụng cho các bài toán thỏa mãn ràng buộc (Constraint Satisfaction Problems - CSP). Trong triển khai này, các thuật toán này được điều chỉnh để tìm đường đi đến trạng thái đích.
 
-Áp dụng cho 8-Puzzle: Nếu không biết chính xác cấu hình ban đầu của bàn cờ, nhưng biết nó là một trong một vài cấu hình có thể có, thuật toán sẽ tìm một chuỗi hành động chung để giải quyết tất cả các trường hợp đó.
+**Các thuật toán Tìm kiếm dựa trên ràng buộc đã triển khai**
 
-Ưu điểm: Có thể giải quyết bài toán trong môi trường không chắc chắn về trạng thái ban đầu.
+Backtracking Search: Một dạng tìm kiếm theo chiều sâu có quay lui để khám phá các khả năng.
 
-Nhược điểm: Không gian trạng thái niềm tin có thể rất lớn (tập hợp các tập hợp trạng thái vật lý).
+Forward Checking: Một kỹ thuật duy trì tính nhất quán trong quá trình tìm kiếm, loại bỏ sớm các giá trị không khả thi.
 
-Hình ảnh GIF minh họa:
+Constraint Propagation (AC3): Một thuật toán đảm bảo tính nhất quán cung (Arc Consistency) giữa các biến. Trong triển khai này, AC3 được mô phỏng bằng BFS để tìm đường đi, tập trung vào việc khám phá các trạng thái.
 
-Nhận xét về hiệu suất trên 8-Puzzle: Hiệu quả phụ thuộc vào số lượng trạng thái ban đầu có thể có. Số lượng trạng thái ban đầu càng lớn, không gian tìm kiếm trạng thái niềm tin càng phức tạp.
+Hình ảnh minh họa:
 
-Tìm kiếm AND-OR (AND-OR Search):
+Biểu đồ so sánh hiệu suất:
 
-Nguyên lý: Được sử dụng để giải quyết các bài toán trong môi trường có kết quả hành động không chắc chắn (ví dụ: trò chơi, lập kế hoạch với các sự kiện ngẫu nhiên). Cây tìm kiếm bao gồm các node OR (đại diện cho các lựa chọn hành động của tác nhân) và các node AND (đại diện cho các kết quả có thể xảy ra sau hành động do môi trường hoặc đối thủ tạo ra).
+**Ưu điểm, Nhược điểm và Hiệu suất**
 
-Áp dụng cho 8-Puzzle: Có thể mô hình hóa nếu có yếu tố không chắc chắn trong việc di chuyển (ví dụ: đôi khi di chuyển sang trái lại dẫn đến di chuyển xuống).
+Tổng quan về hiệu suất trên trò chơi 8 ô chữ: Khi được điều chỉnh để tìm đường đi trong 8-Puzzle, Backtracking và Forward Checking có thể hoạt động nhưng thường không hiệu quả bằng BFS hoặc A* trong việc tìm lời giải tối ưu. Việc mô phỏng AC3 bằng BFS có nghĩa là hiệu suất của nó sẽ tương đương với BFS.
 
-Ưu điểm: Phù hợp với các bài toán có yếu tố không chắc chắn hoặc đối kháng.
+Backtracking Search:
+Là một thuật toán tìm kiếm đệ quy, thử gán giá trị cho các biến lần lượt. Nếu một gán giá trị dẫn đến vi phạm ràng buộc, thuật toán sẽ "quay lui" và thử một giá trị khác.
 
-Nhược điểm: Phức tạp để xây dựng cây AND-OR và thực hiện tìm kiếm.
+Ưu điểm:
 
-Hình ảnh GIF minh họa: 
+Đơn giản để triển khai.
 
-Nhận xét về hiệu suất trên 8-Puzzle: Ít phổ biến cho bài toán 8-Puzzle tiêu chuẩn do tính xác định của nó, nhưng có thể áp dụng cho các biến thể có thêm yếu tố ngẫu nhiên.
+Có thể tìm thấy lời giải nếu lời giải nằm ở độ sâu nông.
 
-Tìm kiếm với quan sát một phần (Search with Partial Observation):
+Nhược điểm:
 
-Nguyên lý: Tương tự Belief State Search, nhưng tác nhân chỉ có thể quan sát một phần trạng thái vật lý sau mỗi hành động. Thông tin quan sát được sử dụng để cập nhật trạng thái niềm tin.
+Có thể khám phá các nhánh không cần thiết.
 
-Áp dụng cho 8-Puzzle: Nếu sau khi di chuyển, tác nhân chỉ biết vị trí của một vài ô nhất định, nó cần suy luận về các cấu hình bàn cờ có thể xảy ra dựa trên quan sát đó.
+Dễ bị mắc kẹt trong các "ngõ cụt" sâu.
 
-Ưu điểm: Giải quyết bài toán trong môi trường có thông tin không đầy đủ sau hành động.
+Không đảm bảo tính tối ưu.
 
-Nhược điểm: Việc cập nhật trạng thái niềm tin dựa trên quan sát một phần có thể phức tạp.
 
-Hình ảnh GIF minh họa:
+Forward Checking:
+Là một cải tiến của Backtracking Search. Khi gán giá trị cho một biến, Forward Checking kiểm tra các ràng buộc liên quan đến biến đó và loại bỏ các giá trị không nhất quán trong miền giá trị của các biến chưa được gán.
 
-Nhận xét về hiệu suất trên 8-Puzzle: Phức tạp hơn Belief State Search do cần xử lý thông tin quan sát không đầy đủ.
+Ưu điểm:
 
+Cải thiện đáng kể hiệu quả của Backtracking bằng cách phát hiện sớm sự không nhất quán.
 
-2.7. Thuật toán Học tăng cường (Reinforcement Learning Search)
+Giúp cắt tỉa không gian tìm kiếm hiệu quả hơn.
 
-Học tăng cường (RL) là một lĩnh vực của AI nơi tác nhân học cách hành động trong một môi trường để tối đa hóa phần thưởng tích lũy. Thay vì tìm kiếm đường đi trong không gian trạng thái đã biết, tác nhân RL học thông qua thử và sai.
+Nhược điểm:
 
-Học Q-Learning (Q-Learning):
+Không phát hiện được tất cả các sự không nhất quán sớm nhất (chỉ kiểm tra ràng buộc liên quan đến biến hiện tại và các biến chưa được gán giá trị).
 
-Nguyên lý: Một thuật toán RL không mô hình (model-free). Tác nhân học một hàm giá trị Q (Q(s,a)), ước lượng giá trị kỳ vọng của việc thực hiện hành động a trong trạng thái s và sau đó tuân theo chính sách tối ưu. Tác nhân cập nhật giá trị Q dựa trên phần thưởng nhận được và giá trị Q của trạng thái tiếp theo.
+Không đảm bảo tính tối ưu.
 
-Áp dụng cho 8-Puzzle: Tác nhân (chương trình AI) học cách di chuyển các ô bằng cách thử các hành động khác nhau từ các trạng thái khác nhau. Nó nhận phần thưởng (ví dụ: dương khi đạt đích, âm khi di chuyển sai hoặc theo khoảng cách Manhattan giảm) và cập nhật bảng Q để biết nước đi nào là tốt nhất trong mỗi trạng thái.
 
-Ưu điểm: Có thể học được chính sách tối ưu mà không cần biết trước mô hình chuyển đổi của môi trường.
+Constraint Propagation (AC3 - mô phỏng bằng BFS):
+AC3 (Algorithm for Maintaining Arc Consistency) là một thuật toán đảm bảo tính nhất quán cung giữa các biến trong bài toán CSP. Trong triển khai này, AC3 được mô phỏng bằng BFS để tìm đường đi, tập trung vào việc khám phá các trạng thái có thể đạt được.
 
-Nhược điểm: Có thể yêu cầu rất nhiều lần thử (episodes) để hội tụ, đặc biệt với không gian trạng thái lớn. Việc lựa chọn các tham số (tốc độ học α, hệ số chiết khấu γ, tham số khám phá ϵ) rất quan trọng.
+Ưu điểm:
 
-Hình ảnh GIF minh họa
+Đảm bảo tính nhất quán cung, giúp giảm không gian tìm kiếm (trong ngữ cảnh CSP truyền thống).
 
-Nhận xét về hiệu suất trên 8-Puzzle: Q-Learning có thể giải 8-Puzzle sau quá trình huấn luyện đủ dài. Hiệu quả thực thi (thời gian tìm lời giải sau khi huấn luyện) thường nhanh, nhưng quá trình huấn luyện có thể tốn thời gian.
+Khi mô phỏng bằng BFS để tìm đường đi, nó kế thừa các ưu điểm của BFS (đầy đủ, tối ưu).
 
+Nhược điểm:
 
-4. Kết luận
+Việc đảm bảo tính nhất quán có thể tốn kém (trong ngữ cảnh CSP truyền thống).
 
-Đồ án đã hoàn thành các mục tiêu đề ra, triển khai thành công một loạt các thuật toán tìm kiếm kinh điển và hiện đại để giải quyết bài toán 8-Puzzle. Các kết quả đạt được bao gồm:
-Xây dựng được giao diện người dùng trực quan cho phép tương tác với bài toán 8-Puzzle và các thuật toán.
+Khi mô phỏng bằng BFS, nó kế thừa nhược điểm về bộ nhớ của BFS.
 
-Triển khai thành công các thuật toán tìm kiếm không có thông tin (BFS, DFS, UCS, IDDFS), có thông tin (Greedy, A*, IDA*), cục bộ (Hill Climbing, Simulated Annealing, Beam Search, Genetic Algorithm), dựa trên ràng buộc (Backtracking, Forward Checking, AC3), tìm kiếm phức tạp (Belief State, AND-OR, Partial Observation) và học tăng cường (Q-Learning).
 
-Cung cấp khả năng trực quan hóa quá trình giải của thuật toán và so sánh hiệu suất giữa chúng.
+### 2.5. Các thuật toán Tìm kiếm phức tạp (Complex Search)
+**Khái niệm bài toán tìm kiếm và lời giải**
+Nhóm này bao gồm các thuật toán xử lý các bài toán tìm kiếm trong môi trường không chắc chắn hoặc có quan sát một phần.
 
-Hiểu rõ hơn về nguyên lý hoạt động, ưu nhược điểm và phạm vi áp dụng của từng loại thuật toán tìm kiếm thông qua việc giải quyết một bài toán cụ thể.
+**Các thuật toán Tìm kiếm phức tạp đã triển khai**
 
-Project này không chỉ là sản phẩm cuối kỳ mà còn là cơ hội quý báu để nhóm củng cố kiến thức lý thuyết và rèn luyện kỹ năng lập trình trong lĩnh vực Trí tuệ Nhân tạo. Mặc dù còn một số hạn chế (ví dụ: cần tối ưu hóa hiệu suất cho các bài toán rất khó, giao diện có thể cải thiện thêm), nhưng những kết quả đạt được là nền tảng quan trọng cho việc tiếp tục tìm hiểu và làm việc với các bài toán AI phức tạp hơn trong tương lai.
+AND-OR Search: Thường được sử dụng cho các bài toán có yếu tố lựa chọn (OR nodes) và yếu tố bắt buộc phải hoàn thành tất cả (AND nodes), ví dụ như trong lập kế hoạch. Trong triển khai này, nó có thể được điều chỉnh để xử lý các trường hợp có nhiều trạng thái ban đầu có thể xảy ra (niềm tin).
+
+Belief State Search: Tìm kiếm trên không gian các "trạng thái niềm tin", trong đó mỗi trạng thái niềm tin là một phân phối xác suất trên các trạng thái thực tế có thể xảy ra.
+
+Search with Partial Observation: Tìm kiếm khi hệ thống chỉ có thể quan sát một phần trạng thái thực tế của môi trường.
+
+Hình ảnh minh họa:
+
+Biểu đồ so sánh hiệu suất: 
+
+**Ưu điểm, Nhược điểm và Hiệu suất**
+
+Tổng quan về hiệu suất trên trò chơi 8 ô chữ: Các thuật toán trong nhóm này không được thiết kế tối ưu cho 8-Puzzle cổ điển. Việc áp dụng chúng trong dự án này có thể nhằm mục đích minh họa cách chúng có thể được điều chỉnh cho các biến thể của 8-Puzzle hoặc các bài toán phức tạp hơn. Hiệu suất thực tế của chúng trên 8-Puzzle (khi được mô phỏng) sẽ phụ thuộc vào cách mô hình hóa bài toán và số lượng "niềm tin" cần xử lý.
+
+AND-OR Search, Belief State Search, Search with Partial Observation (mô phỏng bằng BFS):
+Các thuật toán này giải quyết bài toán bằng cách tìm kiếm trong không gian các trạng thái niềm tin hoặc sử dụng cấu trúc AND-OR để biểu diễn bài toán. Trong triển khai này, chúng được mô phỏng bằng cách áp dụng BFS để tìm lời giải cho từng trạng thái ban đầu có thể xảy ra (niềm tin).
+
+Ưu điểm:
+
+Có khả năng xử lý các bài toán phức tạp hơn 8-Puzzle cổ điển, nơi có sự không chắc chắn hoặc thông tin không đầy đủ.
+
+Cung cấp khung làm việc để suy luận dưới sự không chắc chắn.
+
+Nhược điểm:
+
+Không gian trạng thái (không gian niềm tin) có thể rất lớn, dẫn đến chi phí tính toán cao.
+
+Các thuật toán này thường phức tạp hơn để triển khai và hiểu.
+
+Việc mô phỏng bằng BFS có thể không phản ánh hết hiệu quả thực sự của chúng trên các bài toán phức tạp hơn.
+
+
+### 2.6. Các thuật toán Học tăng cường (Reinforcement Learning Search)
+**Khái niệm bài toán tìm kiếm và lời giải:**
+Học tăng cường là một lĩnh vực của AI nơi tác nhân học cách đưa ra quyết định bằng cách thực hiện các hành động trong một môi trường để đạt được phần thưởng tối đa. Trong 8-Puzzle, tác nhân (thuật toán) học cách di chuyển các ô số để đạt được trạng thái đích thông qua thử và sai, nhận phản hồi (phần thưởng) từ môi trường. Lời giải là một chính sách (policy) hoặc một chuỗi hành động được học.
+
+**Các thuật toán Học tăng cường đã triển khai:**
+
+Q-Learning: Một thuật toán học tăng cường không mô hình (model-free) học giá trị Q (giá trị kỳ vọng của việc thực hiện một hành động trong một trạng thái cụ thể).
+
+Hình ảnh minh họa:
+
+
+
+Biểu đồ so sánh hiệu suất: 
+
+**Ưu điểm, Nhược điểm và Hiệu suất**
+
+Tổng quan về hiệu suất trên trò chơi 8 ô chữ: Q-Learning là một cách tiếp cận khác biệt so với tìm kiếm truyền thống. Nó không trực tiếp tìm một đường đi cụ thể từ trạng thái ban đầu đến đích mà học một chiến lược hành động. Đối với 8-Puzzle, Q-Learning có thể học được cách giải sau một quá trình huấn luyện đủ dài, nhưng thường không hiệu quả bằng A* hoặc IDA* trong việc tìm lời giải tối ưu cho một trạng thái ban đầu cụ thể. Tuy nhiên, nó minh họa khả năng áp dụng học tăng cường cho các bài toán tìm kiếm.
+
+Q-Learning:
+Q-Learning học một hàm giá trị Q, Q(s,a), biểu thị giá trị kỳ vọng của việc thực hiện hành động a trong trạng thái s và sau đó tuân theo chính sách tối ưu. Tác nhân cập nhật giá trị Q dựa trên phần thưởng nhận được và giá trị Q tối đa của trạng thái tiếp theo.
+
+Ưu điểm:
+
+Có khả năng học cách giải quyết bài toán mà không cần mô hình môi trường rõ ràng.
+
+Chính sách học được có thể áp dụng cho nhiều trạng thái ban đầu khác nhau (sau khi huấn luyện).
+
+Có thể thích ứng với môi trường thay đổi (nếu quá trình học tiếp tục).
+
+Nhược điểm:
+
+Quá trình học có thể tốn nhiều thời gian (số lượng episode huấn luyện).
+
+Hiệu quả phụ thuộc vào việc lựa chọn các tham số học (learning rate, discount factor, exploration rate).
+
+Không đảm bảo tìm được lời giải tối ưu trong mọi trường hợp, đặc biệt với số lượng episode huấn luyện hạn chế.
+
+Cần khám phá đủ không gian trạng thái-hành động để học hiệu quả.
+
+### 3. Kết luận
+Dự án đã thành công trong việc triển khai và tích hợp nhiều thuật toán tìm kiếm khác nhau (không có thông tin, có thông tin, cục bộ, dựa trên ràng buộc, phức tạp, học tăng cường) để giải bài toán 8-Puzzle. Ứng dụng cung cấp một nền tảng trực quan để người dùng:
+
+Hiểu rõ hơn về cách hoạt động của từng thuật toán thông qua mô phỏng từng bước.
+
+So sánh hiệu suất (thời gian thực thi, số node mở rộng) giữa các thuật toán trong cùng một nhóm hoặc khác nhóm.
+
+Thử nghiệm các trạng thái ban đầu khác nhau và xem cách các thuật toán xử lý.
+
+Kết quả đạt được bao gồm việc xây dựng một ứng dụng Python sử dụng thư viện Tkinter cho giao diện người dùng, tích hợp các triển khai thuật toán từ cơ bản đến nâng cao, và cung cấp khả năng trực quan hóa quá trình tìm kiếm cũng như so sánh số liệu hiệu suất.
