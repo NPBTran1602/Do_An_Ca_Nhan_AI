@@ -552,7 +552,7 @@ Không đảm bảo tìm được lời giải tối ưu trong mọi trường h
 
 Cần khám phá đủ không gian trạng thái-hành động để học hiệu quả.
 
-### 3. Kết luận
+## 3. Kết luận
 Dự án đã thành công trong việc triển khai và tích hợp nhiều thuật toán tìm kiếm khác nhau (không có thông tin, có thông tin, cục bộ, dựa trên ràng buộc, phức tạp, học tăng cường) để giải bài toán 8-Puzzle. Ứng dụng cung cấp một nền tảng trực quan để người dùng:
 
 Hiểu rõ hơn về cách hoạt động của từng thuật toán thông qua mô phỏng từng bước.
@@ -562,3 +562,7 @@ So sánh hiệu suất (thời gian thực thi, số node mở rộng) giữa c�
 Thử nghiệm các trạng thái ban đầu khác nhau và xem cách các thuật toán xử lý.
 
 Kết quả đạt được bao gồm việc xây dựng một ứng dụng Python sử dụng thư viện Tkinter cho giao diện người dùng, tích hợp các triển khai thuật toán từ cơ bản đến nâng cao, và cung cấp khả năng trực quan hóa quá trình tìm kiếm cũng như so sánh số liệu hiệu suất.
+
+## 4. Link github
+
+https://github.com/NPBTran1602/Do_An_Ca_Nhan_AI.git
