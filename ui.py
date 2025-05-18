@@ -3,7 +3,6 @@ from tkinter import messagebox, ttk
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-# Color and style constants
 BG_MAIN       = "#F3E5F5"
 FRAME_BG      = "#FCE4EC"
 TEXT_COLOR    = "#4A148C"
